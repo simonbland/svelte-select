@@ -2306,6 +2306,31 @@ test('When showChevron and clearable is true always show chevron on Select', asy
   select.$destroy();
 });
 
+test('When showChevron then click on chevron should toggle list', async (t) => {
+  const select = new Select({
+    target,
+    props: {
+      items,
+      showChevron: true,
+    }
+  });
+
+  const event = new PointerEvent('pointerup', { bubbles: true });
+  const chevron = document.querySelectorAll('.chevron')[0];
+  const input = document.querySelector('input');
+
+  chevron.dispatchEvent(event);
+  input.dispatchEvent(new Event('blur'));
+  await Promise.resolve();
+  t.ok(document.querySelector('.svelte-select-list'));
+
+  chevron.dispatchEvent(event);
+  await Promise.resolve();
+  t.ok(!document.querySelector('.svelte-select-list'));
+
+  select.$destroy();
+});
+
 test('When items and loadOptions then listOpen should be false', async (t) => {
   const select = new Select({
     target,

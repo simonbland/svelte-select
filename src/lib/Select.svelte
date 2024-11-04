@@ -558,7 +558,7 @@
     }
 
     function handleClickOutside(event) {
-        if (!listOpen && !focused && container && !container.contains(event.target) && !list?.contains(event.target)) {
+        if (container && !container.contains(event.target) && !list?.contains(event.target)) {
             handleBlur();
         }
     }
@@ -782,7 +782,6 @@
 
         <input
             on:keydown={handleKeyDown}
-            on:blur={handleBlur}
             on:focus={handleFocus}
             readOnly={!searchable}
             {..._inputAttributes}
